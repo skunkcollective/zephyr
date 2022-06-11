@@ -42,9 +42,9 @@ void rndis_clean(void);
 #define RNDIS_SUBCLASS			0x04
 
 #define RNDIS_OVER_ETHERNET		0x01
-#define RNDIS_OVER_WIFI		0x02
-#define RNDIS_OVER_WIMAX		0x03
-#define RNDIS_OVER_WWAN		0x04
+#define RNDIS_OVER_WIFI			0x02
+#define RNDIS_OVER_WIMAX			0x03
+#define RNDIS_OVER_WWAN			0x04
 #define RNDIS_FOR_RAW_IPV4		0x05
 #define RNDIS_FOR_RAW_IPV6		0x06
 #define RNDIS_FOR_GPRS			0x07
