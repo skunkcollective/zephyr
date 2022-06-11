@@ -63,9 +63,9 @@ USBD_CLASS_DESCR_DEFINE(primary, 0) struct usb_rndis_config rndis_cfg = {
 		.bDescriptorType = USB_DESC_INTERFACE_ASSOC,
 		.bFirstInterface = 0,
 		.bInterfaceCount = 0x02,
-		.bFunctionClass = USB_BCC_CDC_CONTROL,
-		.bFunctionSubClass = 6,
-		.bFunctionProtocol = 0,
+		.bFunctionClass = USB_BCC_MISCELLANEOUS,
+		.bFunctionSubClass = RNDIS_SUBCLASS,
+		.bFunctionProtocol = RNDIS_OVER_ETHERNET,
 		.iFunction = 0,
 	},
 	/* Interface descriptor 0 */
