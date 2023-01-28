@@ -9,6 +9,8 @@ LOG_MODULE_REGISTER(main, LOG_LEVEL_DBG);
 
 #include <zephyr/zephyr.h>
 #include <zephyr/posix/pthread.h>
+#include <zephyr/usb/usb_device.h>
+#include <zephyr/net/net_config.h>
 
 #include "civetweb.h"
 
@@ -29,7 +31,7 @@ void *main_pthread(void *arg)
 {
 	static const char * const options[] = {
 		"listening_ports", STRINGIFY(HTTP_PORT),
-		"num_threads", "1",
+		"num_threads", "2",
 		"max_request_size", STRINGIFY(MAX_REQUEST_SIZE_BYTES),
 		NULL
 	};
@@ -55,6 +57,17 @@ void *main_pthread(void *arg)
 
 void main(void)
 {
+
+#if defined(CONFIG_USB_DEVICE_STACK)
+    int ret;
+    ret = usb_enable(NULL);
+    if (ret != 0) {
+        printk("usb enable error %d\n", ret);
+    }
+
+    (void)net_config_init_app(NULL, "Initializing network");
+#endif /* CONFIG_USB_DEVICE_STACK */
+
 	pthread_attr_t civetweb_attr;
 	pthread_t civetweb_thread;
 

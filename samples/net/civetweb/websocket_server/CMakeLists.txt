@@ -37,6 +37,7 @@ file(MAKE_DIRECTORY ${gen_dir}/${web_page_dir})
 foreach(inc_file
 	${web_page_dir}/index.html
 	${web_page_dir}/index.css
+	${web_page_dir}/jquery1.js
 	${web_page_dir}/ws.js)
 
 	# Generate normal and gzipped versions of each file:

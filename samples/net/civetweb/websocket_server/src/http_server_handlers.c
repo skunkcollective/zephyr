@@ -16,6 +16,13 @@ LOG_MODULE_REGISTER(http_server_handlers, LOG_LEVEL_DBG);
 #define URL_INDEX_HTML		"/index.html"
 #define URL_FAVICON_ICO		"/favicon.ico"
 #define URL_WS_JS		"/ws.js"
+#define URL_JQUERY1_JS  "/jquery1.js"
+#define URL_JQUERY2_JS  "/jquery2.js"
+#define URL_JQUERY3_JS  "/jquery3.js"
+#define URL_JQUERY4_JS  "/jquery4.js"
+#define URL_JQUERY5_JS  "/jquery5.js"
+#define URL_JQUERY6_JS  "/jquery6.js"
+#define URL_JQUERY7_JS  "/jquery7.js"
 
 #define HTTP_TEXT_HTML		"text/html"
 #define HTTP_TEXT_CSS		"text/css"
@@ -46,6 +53,8 @@ __code_decl int this_ws_js_handler(struct mg_connection *conn,
 __code_decl int this_favicon_ico_handler(struct mg_connection *conn,
 					 void *cbdata);
 
+__code_decl int this_jquery1_js_handler(struct mg_connection *conn, void *cbdata);
+
 __code_decl void this_set_return_value(int *ret_val);
 
 void init_http_server_handlers(struct mg_context *ctx)
@@ -65,6 +74,15 @@ __code_decl void this_register_handlers(struct mg_context *ctx)
 				this_ws_js_handler, NULL);
 	mg_set_request_handler(ctx, URL_FAVICON_ICO,
 				this_favicon_ico_handler, NULL);
+
+
+	mg_set_request_handler(ctx, URL_JQUERY1_JS, this_jquery1_js_handler, NULL);
+	mg_set_request_handler(ctx, URL_JQUERY2_JS, this_jquery1_js_handler, NULL);
+	mg_set_request_handler(ctx, URL_JQUERY3_JS, this_jquery1_js_handler, NULL);
+	mg_set_request_handler(ctx, URL_JQUERY4_JS, this_jquery1_js_handler, NULL);
+	mg_set_request_handler(ctx, URL_JQUERY5_JS, this_jquery1_js_handler, NULL);
+	mg_set_request_handler(ctx, URL_JQUERY6_JS, this_jquery1_js_handler, NULL);
+	mg_set_request_handler(ctx, URL_JQUERY7_JS, this_jquery1_js_handler, NULL);
 }
 
 __code_decl int this_send_buffer_chunked(struct mg_connection *conn,
@@ -130,6 +148,43 @@ __code_decl int this_redirect_2_index_html(struct mg_connection *conn,
 
 	ret = mg_send_http_redirect(conn, URL_INDEX_HTML, 303);
 	return 202;
+}
+
+
+__code_decl int this_jquery1_js_handler(struct mg_connection *conn, void *cbdata)
+{
+
+	__data_decl const char jquery[] = {
+#include "web_page/jquery1.js.gz.inc"
+	};
+
+	int ret = 0;
+
+	ret = this_send_buffer_chunked(conn, HTTP_TEXT_JS
+					     HTTP_EOFL
+					     HTTP_CONTEND_ENCODING
+					     HTTP_ENCODING_GZ,
+					     jquery, sizeof(jquery));
+	this_set_return_value(&ret);
+	return ret;
+}
+
+__code_decl int this_jquery2_js_handler(struct mg_connection *conn, void *cbdata)
+{
+
+	__data_decl const char jquery[] = {
+#include "web_page/jquery1.js.gz.inc"
+	};
+
+	int ret = 0;
+
+	ret = this_send_buffer_chunked(conn, HTTP_TEXT_JS
+					     HTTP_EOFL
+					     HTTP_CONTEND_ENCODING
+					     HTTP_ENCODING_GZ,
+					     jquery, sizeof(jquery));
+	this_set_return_value(&ret);
+	return ret;
 }
 
 __code_decl int this_index_html_handler(struct mg_connection *conn,

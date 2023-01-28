@@ -16,6 +16,17 @@ LOG_MODULE_REGISTER(lib_extensions, LOG_LEVEL_DBG);
 
 #define FN_MISSING() LOG_DBG("[IMPLEMENTATION MISSING : %s]\n", __func__)
 
+int ferror(FILE *stream)
+{
+	return -1;
+}
+
+int fileno(FILE *stream)
+{
+	errno = EBADF;
+	return -1;
+}
+
 int iscntrl(int c)
 {
 	/* All the characters placed before the space on the ASCII table
